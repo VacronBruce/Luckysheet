@@ -224,7 +224,7 @@ async function core() {
         bundle: true,
         minify: production,
         banner: { js: banner },
-        target: ['es2015'],
+        target: ['es2018'],
         sourcemap: true,
         outfile: 'dist/luckysheet.umd.js',
       })

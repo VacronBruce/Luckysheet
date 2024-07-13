@@ -6,7 +6,7 @@
   "browser": "dist/luckysheet.umd.js",
   "devDependencies": {
     "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-env": "^7.24.7",
     "@babel/runtime-corejs3": "^7.12.1",
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
@@ -41,8 +41,10 @@
     "dayjs": "^1.9.6",
     "esbuild": "^0.11.6",
     "escape-html": "^1.0.3",
+    "exceljs": "^4.4.0",
     "flatpickr": "^4.6.6",
     "jquery": "^2.2.4",
+    "luckyexcel": "^1.0.1",
     "numeral": "^2.0.6",
     "pako": "^1.0.11"
   },

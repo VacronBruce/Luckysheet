@@ -212,10 +212,12 @@ body {
     const chatInput = document.getElementById('chat-input');
     const sendButton = document.getElementById('send-button');
     const loadingIndicator = document.getElementById('loading-indicator');
-
+    assistantButton.style.display = 'none';
     assistantButton.addEventListener('click', function () {
+        assistantButton.style.display = 'none';
         chatContainer.style.display = 'block';
     });
+    assistantButton.style.display = 'none';
 
     closeButton.addEventListener('click', function () {
         chatContainer.style.display = 'none';
@@ -341,6 +343,7 @@ const needChatHosts = [
     'localhost:3000'
 ]
 function isNeedChat() {
+    return false
     const host = location.host;
     if (needChatHosts.includes(host)) {
         return true

@@ -6150,6 +6150,7 @@ export default {
         splitColumn: "Split text",
         insertImage: "Insert image",
         exportXlsx: "Export Xlsx",
+        importXlsx: "Import Xlsx",
         insertLink: "Insert link",
         dataVerification: "Data verification",
         protection: "Protect the sheet",
@@ -7350,5 +7351,9 @@ export default {
         range: "Range",
         currentSheet: "Current sheet",
         allSheets: "All sheets",
+    },
+    importXlsx: {
+        notice: "Please configure the import plugin",
+        title: "Import XLSX",
     },
 };

@@ -70,6 +70,7 @@ import Store from "../store";
 import { createLuckyChart, hideAllNeedRangeShow } from "../expendPlugins/chart/plugin";
 import luckysheetformula from "../global/formula";
 import {createExportDialog,fetchAndDownloadXlsx} from "../expendPlugins/exportXlsx/plugin";
+import { createImportDialog } from "../expendPlugins/importXlsx/plugin";
 
 //, columeflowset, rowflowset
 export default function luckysheetHandler() {
@@ -5616,7 +5617,6 @@ export default function luckysheetHandler() {
 
     //菜单栏 导出按钮
     $("#luckysheet-exportXlsx-btn-title").click(function() {
-
         const exportXlsxInfo =  Store.plugins.find(plugin => plugin.name === 'exportXlsx')
         if(exportXlsxInfo){
             const url = exportXlsxInfo?.config?.url;
@@ -5625,6 +5625,16 @@ export default function luckysheetHandler() {
             }
         }else{
             tooltip.info(_locale.exportXlsx.notice, "");
+        }
+    });
+
+    $("#luckysheet-importXlsx-btn-title").click(function() {
+        const importXlsxInfo =  Store.plugins.find(plugin => plugin.name === 'importXlsx')
+        if (importXlsxInfo) {
+            createImportDialog();
+            //tooltip.info("Prepare to open import button", "");
+        } else {
+            tooltip.info(_locale.importXlsx.notice, "");
         }
     });
 

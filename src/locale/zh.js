@@ -6083,6 +6083,7 @@ export default {
         splitColumn: "分列",
         insertImage: "插入图片",
         exportXlsx: "导出Xlsx",
+        importXlsx: "導入Xlsx",
         insertLink: "插入链接",
         dataVerification: "数据验证",
         protection: "保护工作表内容",
@@ -7325,5 +7326,9 @@ export default {
         range: "范围",
         currentSheet: "当前工作表",
         allSheets: "所有工作表",
+    },
+    importXlsx: {
+        notice: "請配置導入插件",
+        title: "導入XLSX",  
     },
 };

@@ -5,6 +5,7 @@ import { arrayRemoveItem, replaceHtml } from '../../utils/util';
 import tooltip from '../../global/tooltip';
 import { getSheetIndex } from '../../methods/get';
 import Store from '../../store';
+import {exportSheetExcel} from './export';
 
 // Initialize the export xlsx api
 function exportXlsx(options, config, isDemo) {
@@ -28,38 +29,9 @@ function downloadXlsx(data, filename) {
  * @param {*} fail 
  */
 function fetchAndDownloadXlsx({url,order}, success, fail) {
-    const luckyJson = luckysheet.toJson();
-    luckysheet.getAllChartsBase64((chartMap) => {
-        luckyJson.chartMap = chartMap
-        luckyJson.devicePixelRatio = window.devicePixelRatio
-        luckyJson.exportXlsx = {
-            order
-        }
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(luckyJson)
-        })
-            .then((response) => response.blob())
-            .then((blob) => {
-                if (blob.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
-                    const filename = luckyJson.title + '.xlsx';
-                    downloadXlsx(blob, filename);
-                    success && success()
-                } else {
-                    fail && fail()
-                }
+    exportSheetExcel(luckysheet.getAllSheets(), "Bruce Try Test");
 
-            })
-            .catch((error) => {
-                console.error('fetch error:', error);
-                fail && fail()
-            });
-    })
-
-
+    success && success();
 }
 
 function createExportDialog(url) {
@@ -104,6 +76,7 @@ function createExportDialog(url) {
             }
             fetchAndDownloadXlsx({url,order},()=>{
                 luckysheet.hideLoadingProgress()
+                tooltip.info("Good success export", "export test");
             },()=>{
                 luckysheet.hideLoadingProgress()
                 tooltip.info(_locale.exportXlsx.serverError, "");
