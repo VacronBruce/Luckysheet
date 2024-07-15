@@ -1,25 +1,50 @@
 import * as Excel from 'exceljs';
 
-export async function exportSheetExcel(luckysheet, name="file") { 
+export async function exportSheetExcel(sheets, name = "file") { 
   // 参数为luckysheet.getluckysheetfile()获取的对象
   // 1.创建工作簿，可以为工作簿添加属性
   const workbook = new Excel.Workbook();
   
   // 2.创建表格，第二个参数可以配置创建什么样的工作表
-  luckysheet.every(function (table) {
-      if (table.data.length === 0) return true;
-      const worksheet = workbook.addWorksheet(name);
+  sheets.forEach((table) => {
+    if (table.data.length === 0) {
+        console.warn(`we got table zero length`);
+        return true;
+      }
+      const worksheet = workbook.addWorksheet(table.name);
       // 3.设置单元格合并,设置单元格边框,设置单元格样式,设置值
       setStyleAndValue(table.data, worksheet);
       setMerge(table.config.merge, worksheet);
       setBorder(table, worksheet);
       setImages(table, worksheet, workbook);
       return true;
-  })
+  });
 //   // 4.写入 buffer
   const buffer = await workbook.xlsx.writeBuffer();
 //   // 5.保存为文件
   saveFile(buffer,name);
+}
+
+export async function exportSheetBlob(luckysheet) { 
+    // 参数为luckysheet.getluckysheetfile()获取的对象
+    // 1.创建工作簿，可以为工作簿添加属性
+    const workbook = new Excel.Workbook();
+    
+    // 2.创建表格，第二个参数可以配置创建什么样的工作表
+    luckysheet.every(function (table) {
+        if (table.data.length === 0) return true;
+        const worksheet = workbook.addWorksheet(table.name);
+        // 3.设置单元格合并,设置单元格边框,设置单元格样式,设置值
+        setStyleAndValue(table.data, worksheet);
+        setMerge(table.config.merge, worksheet);
+        setBorder(table, worksheet);
+        setImages(table, worksheet, workbook);
+        return true;
+    })
+  //   // 4.写入 buffer
+    const buffer = await workbook.xlsx.writeBuffer();
+  //   // 5.保存为文件
+    return new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8' });
 }
 
 var saveFile = function(buf,name) {
